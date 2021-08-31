@@ -1,0 +1,13 @@
+{
+    "name": "gaterpc/gaterpc-php",
+    "description": "gaterpc client for php",
+    "type": "library",
+    "require": {
+        "hprose/hprose": "^2.0"
+    },
+    "autoload": {
+            "files": [
+                "src/init.php"
+            ]
+    }
+}

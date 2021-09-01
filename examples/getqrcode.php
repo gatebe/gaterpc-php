@@ -1,5 +1,6 @@
 <?php
 require_once '../src/init.php';
+$conf = require_once("./config.php");
 use gaterpc\Rpc;
-$instance = new Rpc("d0fb5221-ef9c-42a1-b5a3-912ff9184fb5");
+$instance = new Rpc($conf['guid'],$conf['endpoint']);
 var_dump($instance->GetQrcode());

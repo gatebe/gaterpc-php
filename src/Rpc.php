@@ -5,8 +5,8 @@ class Rpc{
 	protected $client;
 	protected $baseurl;
 	protected $guid;
-	public function __construct($guid,$baseurl="http://127.0.0.1:6062"){
-		$this->baseurl = $baseurl;
+	public function __construct($guid,$baseurl="127.0.0.1:6062"){
+		$this->baseurl = "http://".ltrim($baseurl,"http://");
 		$this->guid = $guid;
 		$this->client = Client::create($this->baseurl,false);
 	}
@@ -52,5 +52,35 @@ class Rpc{
 		$encoder = $this->client->LogOut($this->guid);
                 if($encoder->code<0) return $encoder;
                 return $this->client->LogOut($this->guid,$this->Request($encoder)->response);
+	}
+	
+	public function HeartBeat(){
+		$encoder = $this->client->HeartBeat($this->guid);
+		if($encoder->code<0) return $encoder;
+		return $this->client->HeartBeat($this->guid,$this->Request($encoder)->response);
+	}
+	
+	public function Awake(){
+		$encoder = $this->client->Awake($this->guid);
+		if($encoder->code<0) return $encoder;
+		return $this->client->Awake($this->guid,$this->Request($encoder)->response);
+	}
+
+	public function GetProfile(){
+		$encoder = $this->client->GetProfile($this->guid);
+                if($encoder->code<0) return $encoder;
+                return $this->client->GetProfile($this->guid,$this->Request($encoder)->response);
+	}
+
+	public function SendText($userName,$content){
+		$encoder = $this->client->SendText($this->guid,$userName,$content);
+                if($encoder->code<0) return $encoder;
+                return $this->client->SendText($this->guid,$this->Request($encoder)->response);
+	}
+
+	public function SendEmoji($userName,$md5,$type="0",$content=""){
+		$encoder = $this->client->SendEmoji($this->guid,$userName,$md5,$type,$content);
+		if($encoder->code<0) return $encoder;
+                return $this->client->SendEmoji($this->guid,$this->Request($encoder)->response);
 	}
 }
